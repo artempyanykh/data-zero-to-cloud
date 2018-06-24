@@ -1,142 +1,117 @@
 slidenumbers: true
-footer: Artem Pyanykh (@artem_pyanykh), Alibaba, Moscow, 2018
+
+[.footer: Artem Pyanykh (@artem_pyanykh), Moscow, 2018]
 
 # [fit] **Data pipelines**
 # <br/><br/><br/>
 # [fit] From **zero**
-# to
+# [fit] to
 # [fit] **cloud** scale.
 
-![right](diy.jpg)
+![](data-pipes.jpg)
 
 ---
 
 # About me
 
-* My name is **Artem Pyanykh**.
-* I've worked as **engineer, data scientist, consultant and manager** in start-ups and SMB.
-* Tools of choice are **Scala** and **Python**.
-* At Toptal for more than 3 years, currently acting as **Head of Analytics**.
+- My name is **Artem Pyanykh**.
+- Ex Head of Analytics @ Toptal.
+- Ex CTO @ Boomstarter.
+- Onto a new venture to change retail landscape! <sup>We're hiring :wink:</sup>
+- Proficient in data engineering, ML and making mistakes [^0].
+- $$\lambda$$ = :heart:!
 
-![right](me.png)
+![right](me-2.jpg)
 
----
-
-# About Toptal
-
-* Toptal is a freelance platform like no other :wink:
-* Main business differentiators are **strict quality control** on both talent and client sides, and **extreme operational efficiency**.
-* This is possible because we have **top-notch talent** in the core team, and we make smart **decisions supported by data**.
-
-![left](toptal.jpg)
+[^0]: ... which I hopefully learn from.
 
 ---
 
-# [fit] Let's
-# [fit] get
-# [fit] started
+# [fit] Without
+# [fit] further
+# [fit] ado...
 
 ---
 
-# What is DWH?
-
----
-From Wikipedia:
-
-> Data Warehouse is a store of data accumulated from a wide range of sources within a company and used to guide management decisions.
-
-Main traits:
-
-* Information is consolidates and consistent.
-* Stores current and historical data in a single place.
-* Used for decision making.
+# What is the
+# [fit] **essense**
+# [fit] of data processing
 
 ---
 
-# Or simpler...
+# [fit] :hankey: :arrow_right: :crystal_ball: :arrow_right: :lollipop:
 
 ---
 
-# [fit] DWH is 
-# [fit] **DB** with data structured for **convenient OLAP**[^1]
-# [fit] +
-# [fit] necessary **infrastructure**.
-
-[^1]: Star schema, dimensional modelling, etc.
-
----
-
-# [fit] Why we've built
-# [fit] **our own** DWH
-# [fit] ?
-
----
-[.build-lists: true]
-
-* Extra **flexibility** and customization compared to proprietary solutions,
-* Ability to use standard engineering **QA** tools and techniques (again, in contrast to proprietary solutions),
-* It's actually pretty **easy**.
-
-![right, fit](pentaho.jpg)
+## :hankey: :arrow_right: :crystal_ball: :arrow_right: :lollipop:
+# <br/>
+# [fit] Just kidding
+# <br/>
+_Although, it's not too far from the truth!_
 
 ---
 
-# What we 
-# **will be**
-# discussing
+# **False dilemma** of data engineering
+
+![inline fill](big-data-peasant.jpg)![inline fill](big-data-machines.jpg)
 
 ---
 
-# [fit] How to build a scalable
-# [fit] data warehousing solution
+# [fit] Standing on the
+# [fit] shoulders of giants
 
-* within **reasonable** time
-* with **reasonable** costs
+Data processing got much more accessible. Nowadays you can:
 
-# [fit] leveraging all the good stuff
-# [fit] that big companies provide us.
+- start small,
+- build a no BS solution,
+- that delivers business value from day 1, and
+- has great potential for scaling.
 
 ![right, fit](giants.jpg)
 
 ---
 
-# Classic DWH architecture
+# Starting <sub>small</sub>
+
+---
+
+# Data processing pipeline
 
 ![inline](dwh-arch.png)
 
 ---
 
-# Minimal single-machine setup
+# Necessary components
 
-We need a \*nix machine with:
-
-1. Enough storage, CPU and RAM :white_check_mark:
-2. Python :white_check_mark:
-3. PostgreSQL to act as a presentation area :white_check_mark:
-4. Luigi _... to bring them all, and in the darkness bind them!_ ⚔️
+| Component |     |
+| ---       | --- |
+| Computing | ?  |
+| Storage | ? |
+| Prog. Lang. | ? |
+| Dependency Manager | ? |
+| Frontend DB | ? |
 
 ---
 
-# [fit] Wait!
-# [fit] What's Luigi?
+# Minimal setup
+
+| Component |     |
+| ---       | --- |
+| Computing | Linux Box |
+| Storage | Local Disk |
+| Prog. Lang. | Python |
+| Dependency Manager | Luigi |
+| Frontend DB | PostgreSQL     |
+
+---
+
+# [fit] A word on
+# [fit] Luigi
 
 ![right, fit](luigi-character.jpg)
 
 ---
 
-From a description on Github:
-
-Luigi is a **Python module** that helps you build **complex pipelines** of batch jobs. It handles **dependency** resolution, **workflow** management, visualization etc. It also comes with Hadoop support built in.
-
----
-
-[.autoscale: true]
-
-# [fit] In other words,
-# [fit] `make`
-# [fit] **on steroids**.
-
----
 Luigi has **tasks**, **targets** and **requirements**. When a **target** is **absent** a **task** is being **run**.
 
 ![inline](luigi-arch.png)
@@ -153,13 +128,10 @@ The **power** comes from these facts:
 
 ---
 
-#This is how our production ETL pipeline looks like
+## A sample from our 
+## production ETL
 
 ![right fit](luigi-deps-real.png)
-
----
-
-![](madness.jpg)
 
 ---
 
@@ -167,24 +139,29 @@ The **power** comes from these facts:
 # [fit] on
 # [fit] time
 
-![](magic.jpg)
+![](coding.jpg)
 
 ---
 
-# Would I **run** this in **production**?
+# <sub>going</sub> BIG
 
 ---
 
-# [fit] No!
+# Missing pieces
 
-![right](no-meme.png)
+We need these things in place to scale out:
+
+1. durable and scalable storage,
+2. distributed processing,
+3. scalable OLAP Database.
 
 ---
 
-# For the peace of mind I'd rather have
-1. More durable storage,
-2. Proper serialization format,
-3. Scalable OLAP Database.
+# [fit] Let's see what
+# [fit] **GCP**[^1]
+# [fit] can offer
+
+[^1]: Google Cloud Platform. Not affiliated, just happened to use at work.
 
 ---
 
@@ -194,83 +171,27 @@ The **power** comes from these facts:
 
 ---
 
-# [fit] In Cloud
-# [fit] you don't choose storage.
-# [fit] Storage chooses you.
-
----
-
 # Google Cloud Storage is
 
-1. Durable[^2],
-2. Available[^3],
-3. Scalable.
-
-
-[^2]: Over 9000 9's durability! Actually, it's 99.999999999%, but you get the point.
-
-[^3]: 99.95% availability for Multi-Regional storage.
+1. **Durable**. Over 9000 9's durability! Actually, it's 99.999999999%, but you get the point.
+2. **Available**. 99.95% availability for Multi-Regional storage.
+3. **Scalable**.
+4. **Fully managed**.
 
 ---
 
-# [fit] Looks
-# [fit] **good**
+# [fit] Processing
+
+![](dwh.jpg)
 
 ---
 
-# [fit] Serialization 
-# [fit] Format
+# [fit] Google Dataflow
 
-![](serialization.jpg)
-
----
-
-# [fit] **Truisms 101**
-
-![left fit](garbage-white.png)
-
----
-
-Apache **Avro** is a data **serialization system**.
-
-It relies on **schemas** which are always present within the file, making serialized files **small** and **self-describing**.
-
----
-
-An example **schema** in **Avro IDL** may look like
-
-```scala
-enum Gender {
-  MALE, FEMALE
-}
-
-record Employee {
-  string name;
-  Gender gender;
-  boolean active = true;
-  long salary;
-}
-```
-
----
-
-As a **serialization system** Apache **Avro** can be compared to **Thrift** and **ProtoBuf**.
-
-## Avro has a couple **advantages**, such as:
-
-1. Convenience when using with dynamic, scripting languages since schema is packed within the file.
-2. Size of a serialized file is usually smaller.
-3. It's supported out-of-the-box in Google Cloud.
-
----
-
-As a **storage format** Apache **Avro** can be compared to **Parquet** and **ORC**.
-
-# Essentially this choice is about
-
-## **Row-based format**
-## vs
-## **Column-based format**.
+1. Supports **distributed** computing via Apache Beam, which is a map-reduce like toolkit.
+2. Fully **managed**.
+3. Automatically horizontally **scalable**.
+4. Integrates perfectly with other pieces of infrastructure inside GCP.
 
 ---
 
@@ -313,11 +234,17 @@ And the **web-interface** is rather slick!
 
 ---
 
-# [fit] An updated list of DWH components would include:
+# Cloud setup
 
-1. A **\*nix machine** with Python and Luigi.
-2. **GCS** as a distributed highly available storage.
-3. **GBQ** as fully managed auto-scalable OLAP Database.
+| Component |     |
+| ---       | --- |
+| Computing | Google Dataflow |
+| Storage | Google Cloud Storage |
+| Prog. Lang. | Python[^4] |
+| Dependency Manager | Luigi |
+| Frontend DB | Google BigQuery |
+
+[^4]: You can also use Java + Beam SDK or Scala + Scio.
 
 ---
 
@@ -325,7 +252,7 @@ And the **web-interface** is rather slick!
 # [fit] on
 # [fit] time
 
-![](magic.jpg)
+![](coding.jpg)
 
 ---
 
@@ -339,20 +266,9 @@ And the **web-interface** is rather slick!
 
 1. Cloud Storage is around $26 per TB/month.
 2. Querying BigQuery is $5 per TB (first 1TB is free).
-3. Compute engine costs $0.94/hr for 16CPU 104GB RAM machine or around $100/mo if cooked properly[^4].
+3. Computing costs ~$1.25/hr for 16CPU 100GB RAM or around $130/mo if cooked properly[^5].
 
-[^4]: Assuming that machine is ETL'ing for 3.5 hours a day on avg. The price can be cut x4 using preemptible instances.
-
----
-
-# [fit] There's a drawback:
-# BigQuery pricing
-# [fit] is **unpredictable**
-
----
-
-* Loading data to BQ is free.
-* But then BQ manages query plans on its own, and it's hard to tell how much data will be scanned in advance.
+[^5]: Assuming that ETL is continuously running for 3.5 hours a day on avg.
 
 ---
 
@@ -360,8 +276,8 @@ And the **web-interface** is rather slick!
 
 Similar setup in **Amazon** would include:
 
-1. **Amazon S3** which costs around **$25 per TB** of standard storage.
-2. **Amazon Athena** which costs $5 per TB (_no first 1TB free_).
+1. Amazon S3 which costs around $25 per TB of standard storage.
+2. Amazon Athena which costs $5 per TB (_no first 1TB free_).
 
 ---
 
@@ -377,9 +293,9 @@ But then you need to be mindful about **choosing appropriate storage format** li
 
 ---
 
-# **Wrap up**
+# [fit] Wrap up
 
-1. Building a reasonable data warehousing solution is becoming easier these days.
+1. Building a reasonable data processing solution is becoming easier these days.
 2. You don't need to spend man-years to get something up & running.
 3. Recurring infrastructure costs for start-ups and SMB can be less than a monthly supply of cookies for the team.
 
@@ -387,5 +303,13 @@ But then you need to be mindful about **choosing appropriate storage format** li
 
 # [fit] Thanks for your
 # [fit] attention!
+# <br/>
+# [fit] **Questions?**
+
+```
+-- speaker: Artem Pyanykh
+-- twitter: @artem_pyanykh
+-- email:   artem.pyanykh@gmail.com
+```
 
 ![right](hypno.png)
