@@ -23,7 +23,8 @@ class LoadRichFines(postgres.CopyToTable):
         generator = super(LoadRichFines, self).rows()
         generator.next()  # skip header
 
-        return generator
+        for row in generator:
+            yield [row[0].decode('utf-8')]  # python 2.7 unicode... this is ridiculous
 
     def init_copy(self, connection):
         query = 'TRUNCATE TABLE {table}'.format(table=self.table)

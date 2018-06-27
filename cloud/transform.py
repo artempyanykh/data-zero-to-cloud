@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from cloud import *
 from cloud.util import date_dir
 from cloud.beam_util import CsvSource, CsvSink, WriteWithSuccessFile, pipeline_options

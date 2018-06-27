@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import luigi
 from luigi.contrib.gcs import GCSTarget
 from cloud.util import root_dir

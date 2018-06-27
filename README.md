@@ -1,4 +1,4 @@
-# Building a Data Warehouse in Google Cloud. DIY
+# Data pipelines. From zero to cloud
 
 ## General overview
 
@@ -62,7 +62,7 @@ For the `local` part you need to install **PostgreSQL** and create a database an
 ```bash
 > psql postgres
 =# create role dwh login password 'dwh';
-=# create database warehouse_in_google_cloud owner dwh;
+=# create database data_zero_to_cloud owner dwh;
 ```
 
 For the `cloud` part you need to obtain Google Cloud Service credentials and put them under `config/credentials.json`.

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from apache_beam.io import filebasedsink, textio, filesystem, Write
 from apache_beam.coders import coders
 from apache_beam.transforms import ptransform, core, window
@@ -57,7 +59,7 @@ class CsvSource(textio._TextSource):
         header = list(csv.reader(([header_string])))[0]
 
         for record in super(self.__class__, self).read_records(file_name, range_tracker):
-            elem = self._coder.decode(record)
+            elem = self._coder.encode(record)
             parsed = list(csv.DictReader([elem], header))[0]
             yield parsed
 

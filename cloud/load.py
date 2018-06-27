@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import luigi
 from luigi.contrib import bigquery
 from cloud import ProcessFines

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import string
 import random
@@ -16,9 +17,12 @@ car_options = {
 
 
 def reg_number_generator():
-    part_1 = ''.join([random.choice(string.ascii_lowercase) for _ in range(2)])
-    part_2 = ''.join([random.choice(string.digits) for _ in range(4)])
-    return part_1 + part_2
+    allowed_letters = ['А', 'В', 'Е', 'К', 'М', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х']
+    part_1 = ''.join([random.choice(allowed_letters) for _ in range(1)])
+    part_2 = ''.join([random.choice(string.digits) for _ in range(3)])
+    part_3 = ''.join([random.choice(allowed_letters) for _ in range(2)])
+    part_4 = ''.join([random.choice(string.digits) for _ in range(2)])
+    return part_1 + part_2 + part_3 + part_4
 
 
 def car_generator():
@@ -43,43 +47,67 @@ def fleet_generator(num):
 
     return generated_cars
 
-
-first_names = [
-    'Gheorghe',
-    'Ioan',
-    'Vasile',
-    'Constantin',
-    'Ion',
-    'Alexandru',
-    'Nicolae',
-    'Mihai',
-    'Dumitru',
-    'Andrei',
-    'Maria',
-    'Elena',
-    'Ana',
-    'Ioana',
-    'Mihaela',
-    'Andreea',
-    'Cristina',
-    'Mariana',
-    'Alexandra',
-    'Daniela'
+male_first_names = [
+    'Авдей',
+    'Еремей',
+    'Харитон',
+    'Аристарх',
+    'Митрофан',
+    'Добрыня',
+    'Евграф',
+    'Мирон',
+    'Христофор',
+    'Варлам'
 ]
 
-last_names = [
-    'Popescu',
-    'Radu',
-    'Dumitru',
-    'Stan',
-    'Stoica',
-    'Gheorghe',
-    'Matei',
-    'Ciobanu',
-    'Ionescu',
-    'Rusu'
+male_last_names = [
+    'Иванов',
+    'Смирнов',
+    'Кузнецов',
+    'Попов',
+    'Васильев',
+    'Петров',
+    'Соколов',
+    'Михайлов',
+    'Елизаров',
+    'Грибов',
+    'Калачев',
+    'Агапов',
+    'Минин',
+    'Черный',
+    'Лыков'
 ]
 
+female_first_names = [
+    'Агафья',
+    'Злата',
+    'Пелагея',
+    'Василиса',
+    'Ульяна',
+    'Феврония',
+    'Алевтина',
+    'Клавдия',
+    'Прасковья',
+    'Ираида'
+]
+
+female_last_names = [
+    'Иванова',
+    'Смирнова',
+    'Кузнецова',
+    'Попова',
+    'Васильева',
+    'Петрова',
+    'Соколова',
+    'Михайлова',
+    'Елизарова',
+    'Грибова',
+    'Калачева',
+    'Агапова',
+    'Минина',
+    'Черная',
+    'Лыкова'
+]
 
 def passport_no_generator():
     return ''.join([random.choice(string.digits) for _ in range(9)])
@@ -98,7 +126,11 @@ latest_permit_date = datetime.strptime('1999-10-31', '%Y-%m-%d').date()
 
 
 def user_generator():
-    name = random.choice(first_names) + ' ' + random.choice(last_names)
+    if random.randint(0, 1) == 0:
+        name = random.choice(male_first_names) + ' ' + random.choice(male_last_names)
+    else:
+        name = random.choice(female_first_names) + ' ' + random.choice(female_last_names)
+
     birth_date = date_generator(birth_from_date, birth_till_date)
     driving_permit_since = date_generator(birth_date, latest_permit_date)
     passport_no = passport_no_generator()
@@ -143,7 +175,7 @@ def fine_generator(day, user, car):
     delta_in_mins = (day_end - day_start).seconds / 60
 
     registered_at = day_start + timedelta(minutes=random.randint(1, delta_in_mins))
-    fine_amount = min([1000, max([int(random.expovariate(0.1)), 1])])
+    fine_amount = min([5000, max([int(random.expovariate(0.005)), 100])])
 
     return {
         'car_reg_number': car['reg_number'],
@@ -204,9 +236,9 @@ def generate_data(num_users, num_cars, start_date, num_days, mean_fines_num):
 if __name__ == '__main__':
     random.seed(0)
 
-    NUM_USERS = 5
-    NUM_CARS = 3
-    NUM_DAYS = 3
+    NUM_USERS = 780
+    NUM_CARS = 80
+    NUM_DAYS = 60
     MEAN_FINES_NUM = 1
 
     data = generate_data(NUM_USERS, NUM_CARS, business_start_date, NUM_DAYS, MEAN_FINES_NUM)
